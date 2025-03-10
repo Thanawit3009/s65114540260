@@ -41,18 +41,11 @@ class NewsUpdateAPIView(generics.UpdateAPIView):
     serializer_class = NewsSerializer
     permission_classes = [IsAdminUser]  # จำกัดเฉพาะ Admin เท่านั้น
 
-@api_view(['GET'])
-def protected_news(request):
-    """
-    API สำหรับส่งข่าว: 
-    - ผู้ใช้ทั่วไป (ไม่ได้ล็อกอิน): ส่งข่าวสาธารณะ
-    - ผู้ใช้ที่ล็อกอิน: ส่งข่าวทั้งหมด
-    """
-    if request.user.is_authenticated:  # ตรวจสอบผู้ใช้ล็อกอิน
-        news = News.objects.all().order_by('-created_at')  # ข่าวทั้งหมด
-    else:
-        news = News.objects.filter(is_public=True).order_by('-created_at')  # ข่าวที่กำหนดเป็นสาธารณะ
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def protected_news(request):
+    news = News.objects.all().order_by('-created_at')  # ข่าวทั้งหมด
     serializer = NewsSerializer(news, many=True, context={'request': request})
     return Response(serializer.data, status=200)
 

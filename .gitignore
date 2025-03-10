@@ -1,0 +1,29 @@
+# Ignore ไฟล์ฐานข้อมูล MySQL (ถ้ามี)
+*.sql
+*.sqlite3
+*.db
+
+# Ignore ไฟล์คอนฟิกส่วนตัวที่อาจมีข้อมูลสำคัญ
+.env
+config.json
+settings.py
+
+# Ignore โฟลเดอร์ Virtual Environment (venv)
+venv/
+.env/
+
+# Ignore ไฟล์ที่สร้างขึ้นอัตโนมัติจากระบบปฏิบัติการ
+.DS_Store
+Thumbs.db
+
+# Ignore ไฟล์ที่สร้างจาก Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore ไฟล์ของ Node.js (ถ้ามี frontend ที่ใช้ React/Vue)
+node_modules/
+npm-debug.log
+
+# Ignore ไฟล์ของ VS Code
+.vscode/

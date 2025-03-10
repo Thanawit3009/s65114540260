@@ -10,6 +10,8 @@ urlpatterns = [
     path('api/', include('users.urls')),
     path('api/auth/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/news/', include('news.urls')),  # เชื่อมต่อแอป news
+    path('api/mycollections/', include('mycollections.urls')),  # เชื่อมต่อ mycollections
+    path('api/chat/', include('chat.urls')),
 ]
 
 # เพิ่มการจัดการไฟล์สื่อ

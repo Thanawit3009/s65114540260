@@ -25,8 +25,7 @@ SECRET_KEY = "django-insecure-+52rno@o&om^vo^lo6&1^vqw!r@xz3p%bz7wcu(iulbt=t*7nt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
@@ -38,15 +37,17 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'community',
-    'collection',
+    'mycollections',
     'users',
     'news',
+    'chat',
     'corsheaders',
     'rest_framework',
     'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # ย้ายขึ้นมาเป็นบรรทัดแรก
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -54,11 +55,11 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
 ]
 
-
 CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_CREDENTIALS = True
 
 
 ROOT_URLCONF = "backend.urls"
@@ -159,3 +160,34 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
+CORS_ALLOW_HEADERS = [
+    'content-type',
+    'authorization',
+    'Access-Control-Allow-Origin',
+    'Access-Control-Allow-Credentials',
+    'Access-Control-Allow-Headers',
+    'Access-Control-Allow-Methods',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS',
+]
+
+# ตั้งค่าอีเมลเซิร์ฟเวอร์
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"  # หรือ SMTP ของผู้ให้บริการอีเมลอื่น
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "thanawit.kh.65@ubu.ac.th"  # ✅ แก้เป็นอีเมลของคุณ
+EMAIL_HOST_PASSWORD = "vebi wxhy xxix kfhy"  # ✅ ใช้ App Password ถ้าเป็น Gmail
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# URL ของ Frontend สำหรับลิงก์รีเซ็ตรหัสผ่าน
+FRONTEND_URL = "http://localhost:3000"  # ✅ ถ้า Deploy ต้องใช้ URL จริง เช่น "https://yourdomain.com"
