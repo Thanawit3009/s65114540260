@@ -1,0 +1,118 @@
+/* Admin Dashboard Container */
+.news-management-container {
+  display: block !important; /* บังคับให้แสดง */
+  visibility: visible !important;
+}
+
+/* Header */
+.news-management-container h1 {
+  color: #6b21a8;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Form Section */
+.news-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto 20px;
+}
+
+.news-form input[type="text"],
+.news-form textarea,
+.news-form input[type="file"] {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.news-form button {
+  background-color: #ff8c42;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.news-form button:hover {
+  background-color: #e0783a;
+}
+
+.news-form button[type="button"] {
+  background-color: #ccc;
+  color: black;
+}
+
+.news-form button[type="button"]:hover {
+  background-color: #bbb;
+}
+
+/* News List */
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 800px;
+  margin: 20px auto;
+}
+
+.news-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background-color: #fff;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.news-item img {
+  width: 100px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.news-item h3 {
+  flex: 1;
+  color: #333;
+  margin: 0;
+}
+
+.news-item p {
+  margin: 0;
+  color: #555;
+  font-size: 14px;
+}
+
+.news-item button {
+  background-color: #6b21a8;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.news-item button:hover {
+  background-color: #5a189a;
+}
+
+.news-item button:last-child {
+  background-color: #e74c3c;
+}
+
+.news-item button:last-child:hover {
+  background-color: #c0392b;
+}

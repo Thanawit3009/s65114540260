@@ -1,0 +1,177 @@
+.my-collection-page {
+  width: 100%;
+  padding: 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  min-height: 100vh; /* ให้เต็มหน้าจอ */
+  background-image: url('../assets/images/background.jpg'); /* ใช้รูปพื้นหลัง */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* ทำให้พื้นหลังไม่เลื่อน */
+  background-position: center; /* จัดให้อยู่ตรงกลาง */
+  padding-top: 80px; /* เพิ่ม padding-top ให้ชดเชยความสูงของ Navbar */
+}
+
+.my-collection-page h1 {
+  text-align: center;
+  color: #ffffff; /* เปลี่ยนสีเป็นสีขาว หรือสีที่มองเห็นได้ */
+  font-size: 32px; /* ปรับขนาดหัวข้อให้ใหญ่ขึ้น */
+  font-weight: bold;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8); /* เพิ่มเงาเพื่อให้อ่านง่ายขึ้น */
+}
+
+.my-collection-page .buttons button {
+  padding: 10px 20px;
+  background-color: #6b21a8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.my-collection-page .buttons button:hover {
+  background-color: #8b5cf6;
+  transform: scale(1.05);
+}
+
+.my-collection-page .buttons button:disabled {
+  background-color: #ddd;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.collection-form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.collection-form div {
+  margin-bottom: 15px;
+}
+
+.collection-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+}
+
+.collection-form input,
+.collection-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.collection-form button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 14px;
+}
+
+.collection-form button[type="submit"] {
+  background-color: #6b21a8;
+  color: white;
+}
+
+.collection-form button[type="submit"]:hover {
+  background-color: #8b5cf6;
+}
+
+.collection-form button[type="button"] {
+  background-color: #dc2626;
+  color: white;
+}
+
+.collection-form button[type="button"]:hover {
+  background-color: #b91c1c;
+}
+
+.delete-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.delete-button:hover {
+  background-color: #ff1a1a;
+}
+
+.collections-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.collection-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 300px;
+}
+
+.collection-card img {
+  width: 100%;
+  max-width: 200px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.collection-card h2 {
+  margin: 10px 0;
+  font-size: 18px;
+  color: #333;
+}
+
+.collection-card p {
+  font-size: 14px;
+  color: #555;
+}
+
+.collection-card .delete-button {
+  margin-top: 10px;
+}
+
+.share-button, .unshare-button, .edit-button {
+  background-color: #6b21a8;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.share-button:hover {
+  background-color: #8b5cf6;
+}
+
+.unshare-button:hover {
+  background-color: #dc2626;
+}
+
+.edit-button:hover {
+  background-color: #4ade80;
+}

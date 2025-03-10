@@ -1,0 +1,47 @@
+.dashboard-overview {
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.dashboard-title {
+    font-size: 2rem;
+    color: #4a4a4a;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    align-items: center;
+}
+
+.overview-card {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 250px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.overview-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.overview-number {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #83048f;
+    margin-bottom: 10px;
+}
+
+.overview-label {
+    font-size: 1rem;
+    color: #6b7280;
+}

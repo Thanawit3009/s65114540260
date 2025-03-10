@@ -1,0 +1,77 @@
+.review-page {
+    padding: 20px;
+    min-height: 100vh;
+    background-image: url('../assets/images/background.jpg'); /* เพิ่มรูปพื้นหลัง */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* ทำให้พื้นหลังไม่เลื่อน */
+    background-position: center; /* จัดตำแหน่งตรงกลาง */
+    box-sizing: border-box;
+}
+
+.review-page {
+    padding: 20px;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+}
+
+.reviews-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding-top: 100px; /* เพิ่มระยะห่างด้านบน */
+}
+
+.review-list {
+    margin-bottom: 20px;
+}
+
+.review-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    padding: 15px;
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.review-header img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.add-review textarea {
+    width: 100%;
+    height: 80px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+}
+
+.add-review button {
+    background-color: #6200ea;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.add-review button:hover {
+    background-color: #3700b3;
+}
+
+.review-page h1 {
+    color: #ffffff; /* เปลี่ยนสีหัวข้อเป็นสีขาว */
+    font-size: 32px; /* ขยายขนาดหัวข้อ */
+    text-align: center; /* จัดให้อยู่ตรงกลาง */
+    margin-bottom: 20px; /* เพิ่มระยะห่างด้านล่าง */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* เพิ่มเงาให้ข้อความ */
+}

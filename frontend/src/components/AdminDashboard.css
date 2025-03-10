@@ -1,0 +1,19 @@
+.admin-dashboard {
+  display: flex;
+}
+
+.admin-content {
+  position: relative;
+  margin-left: 250px;
+  padding: 20px;
+  width: calc(100% - 250px); /* ลดพื้นที่ตาม Sidebar */
+  background-color: #f9fafb;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .admin-content {
+    margin-left: 0; /* ยกเลิก margin เมื่อ Sidebar เล็กลง */
+    width: 100%; /* ขยายเต็มหน้าจอ */
+  }
+}

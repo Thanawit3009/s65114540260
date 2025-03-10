@@ -1,0 +1,150 @@
+/* 🔹 พื้นหลังของหน้าแชท */
+.chat-page {
+  background-image: url('../assets/images/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 80px; /* ✅ เพิ่ม padding-top เพื่อให้ chat-container ไม่ถูกบัง */
+}
+
+/* 🔹 กล่องแชท */
+.chat-container {
+  width: 80%;
+  max-width: 800px;
+  height: 85vh;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  margin-top: 70px; /* ✅ เพิ่ม margin-top เพื่อให้ไม่ถูก Navbar บัง */
+}
+
+/* 🔹 แท็บด้านบน (Profile Tab) */
+.chat-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* ✅ ชิดซ้าย */
+  width: 100%; /* ✅ ยืดเต็มความกว้าง */
+  padding: 15px 20px;
+  background: white; /* ✅ พื้นหลังสีขาว */
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  border-bottom: 1px solid #ddd;
+  position: relative; /* ✅ อยู่ด้านบนของกล่องแชท */
+  z-index: 10;
+}
+
+/* 🔹 รูปโปรไฟล์ในแท็บ */
+.topbar-avatar {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* 🔹 ชื่อคู่สนทนาในแท็บ */
+.topbar-name {
+  font-weight: bold;
+  font-size: 16px;
+  color: #333;
+}
+
+/* 🔹 กล่องแชท */
+.chat-container {
+  width: 80%;
+  max-width: 800px;
+  height: 85vh;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* 🔹 กล่องข้อความ */
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 100px; /* ✅ ป้องกันข้อความล่าสุดถูกบัง */
+}
+
+
+/* กล่องข้อความ */
+.message-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  max-width: 75%;
+}
+
+.message-container.sent {
+  align-self: flex-end;
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+}
+
+.message-container.received {
+  align-self: flex-start;
+  justify-content: flex-start;
+}
+
+/* ฟองข้อความ */
+.message-bubble {
+  padding: 10px 14px;
+  border-radius: 15px;
+  word-wrap: break-word;
+  max-width: 60%;
+  font-size: 14px;
+}
+
+.my-message {
+  background: #8612ad;
+  color: white;
+  text-align: right;
+}
+
+.other-message {
+  background: #f1f0f0;
+  color: black;
+  text-align: left;
+}
+
+/* 🔹 อินพุตส่งข้อความ */
+.chat-input {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+  background: white;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.chat-input input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px 0 0 5px;
+}
+
+.chat-input button {
+  padding: 10px 20px;
+  border: none;
+  background: #960eab;
+  color: white;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}

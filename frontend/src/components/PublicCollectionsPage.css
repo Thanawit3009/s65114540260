@@ -1,0 +1,141 @@
+/* 🔹 พื้นหลังของหน้าคอลเล็กชั่นสาธารณะ */
+.public-collections-page {
+  padding: 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background-image: url('../assets/images/background.jpg'); /* ใส่พื้นหลัง */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* ทำให้พื้นหลังไม่เลื่อน */
+  background-position: center; /* กำหนดตำแหน่งของรูป */
+  padding-top: 120px; /* ✅ เพิ่ม padding-top เพื่อดันคอลเล็กชั่นลงมา */
+}
+
+/* 🔹 หัวข้อหลักของหน้า */
+.public-collections-page h1 {
+  color: #f6f6f6; /* ใช้สีที่เข้ากับธีม */
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-align: center;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* เพิ่มเงาให้ตัวอักษร */
+}
+
+/* 🔹 Layout ของรายการคอลเล็กชั่น */
+.collections-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center; /* จัดให้อยู่กึ่งกลาง */
+}
+
+/* 🔹 การ์ดแต่ละคอลเล็กชั่น */
+.collection-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  max-width: 800px;
+  width: 100%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.collection-card:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* เพิ่มเอฟเฟกต์ Hover */
+}
+
+/* 🔹 ส่วนบนของคอลเล็กชั่นที่มีชื่อและโปรไฟล์ */
+.collection-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* ✅ จัดให้อยู่ซ้าย */
+  position: absolute; /* ✅ ตำแหน่งแน่นอนบนการ์ด */
+  top: 10px; /* ✅ ขยับให้ชิดด้านบน */
+  left: 15px; /* ✅ ขยับให้ชิดด้านซ้าย */
+  gap: 10px;
+  width: auto;
+}
+
+
+
+/* 🔹 รูปโปรไฟล์ของผู้แชร์ */
+.collection-profile {
+  display: flex;
+  align-items: center;
+  flex-direction: row; /* ✅ ให้รูปและชื่อเรียงแนวนอน */
+}
+
+/* 🔹 รูปโปรไฟล์ */
+.collection-profile-image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #6b21a8;
+  transition: transform 0.2s ease;
+}
+
+
+.collection-profile-image:hover {
+  transform: scale(1.1);
+}
+
+/* 🔹 ชื่อผู้แชร์ */
+.collection-user-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-left: 8px; /* ✅ เพิ่มระยะห่างระหว่างรูปกับชื่อ */
+}
+
+
+/* 🔹 รูปของคอลเล็กชั่น */
+.collection-image {
+  width: 100%;
+  max-height: 300px; /* จำกัดความสูง */
+  object-fit: contain; /* ป้องกันการยืด */
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+/* 🔹 ชื่อคอลเล็กชั่น */
+.collection-card h2 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  margin: 10px 0;
+  text-align: center;
+}
+
+/* 🔹 คำอธิบายคอลเล็กชั่น */
+.collection-card p {
+  font-size: 16px;
+  color: #555;
+  text-align: center;
+}
+
+/* 🔹 ปรับสไตล์ให้ Mobile Friendly */
+@media screen and (max-width: 768px) {
+  .collection-card {
+    padding: 15px;
+    max-width: 95%;
+  }
+
+  .collection-profile-image {
+    width: 40px;
+    height: 40px;
+  }
+
+  .collection-user-name {
+    font-size: 14px;
+  }
+
+  .collection-card h2 {
+    font-size: 20px;
+  }
+
+  .collection-card p {
+    font-size: 14px;
+  }
+}

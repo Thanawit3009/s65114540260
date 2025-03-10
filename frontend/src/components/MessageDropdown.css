@@ -1,0 +1,80 @@
+.message-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.message-icon {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 50px;
+  right: 0;
+  width: 320px; /* ✅ ขยายให้กว้างขึ้น */
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  z-index: 1000;
+  max-height: 400px; /* ✅ เพิ่ม max-height */
+  overflow-y: auto;  /* ✅ เพิ่ม scroll ถ้ามีหลายรายการ */
+}
+
+.dropdown-title {
+  font-size: 16px;
+  font-weight: bold;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #ddd;
+  text-align: center;
+  color: #6b21a8; /* ✅ เปลี่ยนสีตัวอักษรเป็นสีม่วง */
+}
+
+.chat-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.chat-item:hover {
+  background: #f9f9f9;
+}
+
+/* ✅ ปรับสไตล์รูปโปรไฟล์ */
+.chat-profile-pic {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  margin-right: 12px;
+  border: 2px solid #ccc;
+  object-fit: cover; /* ✅ ป้องกันรูปยืด */
+}
+
+.chat-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* ✅ ปรับขนาดตัวหนังสือ */
+.chat-info strong {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+.last-message {
+  font-size: 12px;
+  color: #777;
+  white-space: nowrap;  /* ✅ ป้องกันข้อความขึ้นบรรทัดใหม่ */
+  overflow: hidden;
+  text-overflow: ellipsis; /* ✅ เพิ่ม "..." ถ้าข้อความยาวเกิน */
+  max-width: 180px; /* ✅ กำหนด max-width ป้องกันข้อความล้น */
+}

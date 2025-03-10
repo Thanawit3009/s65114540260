@@ -1,0 +1,163 @@
+.loading-text, .no-posts-text {
+  text-align: center;
+  font-size: 18px;
+  color: #555;
+  margin-top: 20px;
+}
+
+/* เพิ่ม padding-top ให้ชดเชย Navbar */
+.posts-page {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-image: url('../assets/images/background.jpg'); /* ใส่รูปพื้นหลัง */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* ทำให้พื้นหลังไม่เลื่อน */
+  padding-top: 90px; /* ชดเชยความสูงของ Navbar */
+}
+
+/* Container หลักสำหรับโพสต์ */
+.posts-container {
+  max-width: 900px;
+  margin: 120px auto 20px auto; /* เพิ่ม margin-top ให้เพียงพอสำหรับ Navbar */
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+/* Card ของแต่ละโพสต์ */
+.post-card {
+  border: none; /* เอาขอบออก */
+  border-radius: 8px;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: white; /* สีพื้นหลังการ์ด */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.post-image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.create-post-btn-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+}
+
+.create-post-btn {
+  background-color: #ff8c00;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Hamburger Menu */
+.hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #fff;
+  color: #6b21a8;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.menu-link {
+  color: #6b21a8;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.menu-link:hover {
+  background-color: #f3f4f6;
+}
+
+.login-btn, .logout-btn {
+  background-color: #6b21a8;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.login-btn:hover, .logout-btn:hover {
+  background-color: #5a189a;
+}
+
+.close-btn {
+  color: red;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.post-header {
+  display: flex; /* จัดเรียงในแนวนอน */
+  align-items: center; /* จัดให้อยู่กึ่งกลางในแนวตั้ง */
+  margin-bottom: 10px; /* เว้นระยะจากเนื้อหาโพสต์ */
+}
+
+.post-profile-image {
+  width: 40px !important; /* ขนาดของรูปโปรไฟล์ */
+  height: 40px !important; /* ให้ความสูงเท่ากับความกว้าง */
+  border-radius: 50% !important; /* ทำให้รูปเป็นวงกลม */
+  object-fit: cover !important; /* ครอบตัดรูปภาพ */
+  margin-right: 10px !important; /* ระยะห่างจากชื่อ */
+}
+
+.post-user-name {
+  font-size: 16px; /* ขนาดตัวอักษร */
+  font-weight: bold; /* เพิ่มน้ำหนักตัวอักษร */
+  color: #333; /* สีตัวอักษร */
+}
+
+.post-actions button {
+  display: inline-flex;
+  align-items: center;
+  font-size: 16px;
+  padding: 5px;
+}
+
+/* สไตล์สำหรับปุ่มหัวใจ */
+.like-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px; /* ขนาดของไอคอน */
+  color: gray; /* สีเริ่มต้นของหัวใจ */
+  display: flex;
+  align-items: center;
+  gap: 5px; /* ระยะห่างระหว่างไอคอนกับข้อความ */
+  transition: color 0.3s ease; /* เพิ่มเอฟเฟกต์การเปลี่ยนสี */
+}
+
+.like-button.liked {
+  color: #ff69b4; /* สีชมพูเมื่อถูกกด */
+}

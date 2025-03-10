@@ -1,0 +1,73 @@
+/* พื้นหลังของทั้งหน้า */
+.news-page {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-image: url('../assets/images/background.jpg'); /* ใช้รูปพื้นหลัง */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* ทำให้พื้นหลังคงที่เวลาเลื่อน */
+  display: flex; /* ใช้ Flexbox */
+  justify-content: center; /* จัดให้อยู่ตรงกลางแนวนอน */
+  align-items: center; /* จัดให้อยู่ตรงกลางแนวตั้ง */
+  padding-top: 70px; /* เพิ่ม padding เพื่อเลื่อน container ลง */
+  box-sizing: border-box; /* เพื่อให้ padding-top ไม่เพิ่มขนาดรวม */
+}
+
+/* Container หลักของข่าว */
+.news-page-container {
+  background-color: rgba(255, 255, 255, 0.9); /* สีขาวโปร่งแสง */
+  padding: 20px;
+  padding-top: calc(20px + 70px); /* เพิ่มพื้นที่ว่างด้านบน เผื่อ navbar */
+  max-width: 1000px;
+  width: 90%; /* ให้ขยายตามหน้าจอ */
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* ป้องกันปัญหาข่าวชนกับ navbar */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* ปรับแต่งข่าวรายการ */
+.news-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* ระยะห่างระหว่างข่าว */
+}
+
+.news-item {
+  display: flex;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  align-items: center;
+}
+
+.news-image {
+  width: 400px; /* เพิ่มความกว้าง */
+  height: 300px; /* เพิ่มความสูง */
+  object-fit: cover; /* ป้องกันภาพบิดเบี้ยว */
+  margin-right: 15px; /* เพิ่มช่องว่างระหว่างรูปภาพกับเนื้อหา */
+}
+
+.news-details {
+  padding: 20px;
+  flex-grow: 1; /* ขยายพื้นที่ข้อความให้พอดีกับกล่อง */
+}
+
+.news-details h2 {
+  margin: 0 0 10px;
+  font-size: 24px; /* เพิ่มขนาดข้อความ */
+  font-weight: bold;
+}
+
+.news-details p {
+  margin: 0;
+  color: #555;
+  line-height: 1.8; /* เพิ่มระยะห่างระหว่างบรรทัด */
+}

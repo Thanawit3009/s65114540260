@@ -1,0 +1,91 @@
+/* Profile.css */
+
+/* พื้นหลังเฉพาะหน้า Profile */
+.profile-page {
+  background-image: url('../assets/images/background.jpg');
+  background-size: cover; /* ปรับให้ภาพเต็มหน้าจอ */
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100vh; /* ความสูงเต็มจอ */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0; /* ลบ margin เริ่มต้น */
+}
+
+/* ปรับขนาดกรอบโปรไฟล์ */
+.profile-container {
+  max-width: 600px; /* ขยายความกว้าง */
+  background-color: rgba(255, 255, 255, 0.9); /* พื้นหลังโปร่งแสง */
+  border-radius: 15px; /* ปรับให้มุมมนมากขึ้น */
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2); /* เพิ่มเงาให้เด่นขึ้น */
+  padding: 30px; /* เพิ่ม Padding */
+  text-align: center;
+  z-index: 1;
+}
+
+/* หัวโปรไฟล์ */
+.profile-header {
+  margin-bottom: 20px;
+}
+
+/* ปรับขนาดรูปโปรไฟล์ */
+.profile-icon {
+  width: 150px; /* ขยายขนาดรูป */
+  height: 150px;
+  border-radius: 50%; /* ทำให้เป็นวงกลม */
+  object-fit: cover;
+  border: 3px solid #fff; /* เส้นขอบหนาขึ้น */
+  background-color: #f0f0f0;
+  margin-bottom: 20px; /* เพิ่มระยะห่างจากเนื้อหา */
+}
+
+/* ปรับข้อความ */
+.profile-details p {
+  font-size: 18px; /* ขยายขนาดตัวอักษร */
+  margin: 12px 0;
+}
+
+.edit-profile-btn {
+  background-color: #6b21a8;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.edit-profile-btn:hover {
+  background-color: #8b5cf6;
+}
+
+.edit-profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.edit-profile-form label {
+  font-weight: bold;
+  color: #333;
+}
+
+.edit-profile-form input[type="text"],
+.edit-profile-form input[type="file"] {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.edit-profile-form button {
+  padding: 10px 15px;
+  background-color: #6b21a8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.edit-profile-form button:hover {
+  background-color: #5a189a;
+}
