@@ -18,6 +18,8 @@ import ChatPage from './components/ChatPage';
 import MessageDropdown from "./components/MessageDropdown";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
+import EditPost from './components/EditPost';
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
@@ -35,6 +37,7 @@ function App() {
         <Route path="/" element={<Posts />} />
         <Route path="/posts" element={<Posts />} />
         <Route path="/create" element={<ProtectedRoute condition={isLoggedIn} redirectTo="/login"><CreatePost /></ProtectedRoute>} />
+        <Route path="/edit-post/:id" element={<ProtectedRoute condition={isLoggedIn} redirectTo="/login"><EditPost /></ProtectedRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/profile" element={<ProtectedRoute condition={isLoggedIn} redirectTo="/login"><Profile /></ProtectedRoute>} />

@@ -124,10 +124,32 @@ const Posts = () => {
     }
   };
 
+  const handleDelete = async (postId) => {
+    const confirmDelete = window.confirm("คุณแน่ใจหรือไม่ว่าต้องการลบโพสต์นี้?");
+    if (!confirmDelete) return;
+  
+    const token = localStorage.getItem("token");
+    try {
+      await axios.delete(`http://localhost:8000/api/community/posts/${postId}/`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      // อัปเดตรายการโพสต์หลังลบ
+      setPosts(posts.filter((post) => post.id !== postId));
+    } catch (error) {
+      console.error("Error deleting post:", error.message);
+      alert("ไม่สามารถลบโพสต์ได้");
+    }
+  };
+  
+  const handleEdit = (postId) => {
+    navigate(`/edit-post/${postId}`);
+  };
+  
+
   return (
     <div className="posts-page">
       <Navbar isLoggedIn={isLoggedIn} onLogout={() => navigate('/login')} />
-
+  
       <div className="posts-container">
         {loading ? (
           <p className="loading-text">กำลังโหลดโพสต์...</p>
@@ -158,16 +180,16 @@ const Posts = () => {
                   </div>
                 )}
               </div>
-
+  
               {/* แสดงหัวข้อ */}
               <h2 className="post-title">{post.title}</h2>
-
+  
               {/* แสดงเนื้อหา */}
               <p>{post.content}</p>
-
+  
               {/* แสดงรูปภาพ (ถ้ามี) */}
               {post.image && <img src={post.image} alt="Post" className="post-image" />}
-
+  
               <div className="post-actions">
                 <button
                   onClick={() => handleLike(post.id)}
@@ -175,17 +197,27 @@ const Posts = () => {
                 >
                   {post.isLiked ? '❤️' : '♡'} {post.likes_count || 0}
                 </button>
-                <button onClick={() => handleComment(post.id)}>
-                  💬
-                </button>
+                <button onClick={() => handleComment(post.id)}>💬</button>
               </div>
+  
+              {/* เฉพาะเจ้าของโพสต์เท่านั้นที่เห็นปุ่มนี้ */}
+              {currentUserId === post.user_id && (
+                <div className="owner-actions">
+                  <button className="edit-btn" onClick={() => handleEdit(post.id)}>
+                    ✏️ แก้ไข
+                  </button>
+                  <button className="delete-btn" onClick={() => handleDelete(post.id)}>
+                    🗑️ ลบ
+                  </button>
+                </div>
+              )}
             </div>
           ))
         ) : (
           <p className="no-posts-text">ยังไม่มีโพสต์ในขณะนี้</p>
         )}
       </div>
-
+  
       {isLoggedIn && (
         <div className="create-post-btn-container">
           <Link to="/create" className="create-post-btn">
@@ -195,6 +227,7 @@ const Posts = () => {
       )}
     </div>
   );
+  
 };
 
 export default Posts;

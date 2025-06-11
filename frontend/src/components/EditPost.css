@@ -1,0 +1,73 @@
+.edit-post-page {
+    min-height: 100vh;
+    background-image: url('../assets/images/background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding-top: 120px;
+  }
+  
+  .edit-post-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 700px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .edit-post-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .edit-post-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #444;
+  }
+  
+  .edit-post-form input,
+  .edit-post-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+  
+  .save-btn {
+    background-color: #4caf50;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .save-btn:hover {
+    background-color: #388e3c;
+  }
+  
+  .cancel-btn {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #d32f2f;
+  }
+  

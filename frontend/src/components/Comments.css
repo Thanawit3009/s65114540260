@@ -1,18 +1,13 @@
 .comments-page {
     padding: 20px;
     min-height: 100vh;
-    background-image: url('../assets/images/background.jpg'); /* เพิ่มรูปพื้นหลัง */
+    background-color: #f7f7f7;
+    background-image: url('../assets/images/background.jpg');
     background-size: cover;
     background-repeat: no-repeat;
-    background-attachment: fixed; /* ทำให้พื้นหลังไม่เลื่อน */
-    background-position: center; /* จัดตำแหน่งตรงกลาง */
+    background-attachment: fixed;
+    background-position: center;
     box-sizing: border-box;
-}
-
-.comments-page {
-    background-color: #f7f7f7;
-    min-height: 100vh;
-    padding: 20px;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -60,8 +55,20 @@
     color: #333333;
 }
 
+.comment-actions-row {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    /* ✅ เพิ่มระยะห่างด้านบน */
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+
+
 .comment-replies {
-    margin-left: 40px; /* เยื้องเพื่อให้แสดงเป็นคำตอบ */
+    margin-left: 40px;
+    /* เยื้องเพื่อให้แสดงเป็นคำตอบ */
     padding-left: 20px;
     border-left: 2px solid #e0e0e0;
 }
@@ -69,7 +76,8 @@
 .reply-card {
     margin-top: 10px;
     padding: 10px;
-    background-color: #f9f9f9; /* เพิ่มสีพื้นหลังให้แยกกับคอมเมนต์หลัก */
+    background-color: #f9f9f9;
+    /* เพิ่มสีพื้นหลังให้แยกกับคอมเมนต์หลัก */
     border-radius: 5px;
 }
 
@@ -126,9 +134,11 @@
 }
 
 .reply-button {
-    background-color: orange; /* เปลี่ยนสีพื้นหลังเป็นสีส้ม */
+    background-color: orange;
+    /* เปลี่ยนสีพื้นหลังเป็นสีส้ม */
     border: none;
-    color: #ffffff; /* สีข้อความเป็นสีขาว */
+    color: #ffffff;
+    /* สีข้อความเป็นสีขาว */
     cursor: pointer;
     font-size: 14px;
     padding: 5px 10px;
@@ -137,5 +147,182 @@
 }
 
 .reply-button:hover {
-    background-color: #ff8c00; /* เปลี่ยนสีเมื่อเอาเมาส์ไปวาง */
+    background-color: #ff8c00;
+    /* เปลี่ยนสีเมื่อเอาเมาส์ไปวาง */
+}
+
+.comment-owner-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    /* ✅ เผื่อจอเล็กไม่เบียดกัน */
+}
+
+
+.edit-btn,
+.delete-btn {
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+    background-color: #4caf50;
+}
+
+.edit-btn:hover {
+    background-color: #388e3c;
+}
+
+.delete-btn {
+    background-color: #f44336;
+}
+
+.delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+.edit-comment-section {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    /* ✅ เพิ่มช่องว่างแนวตั้งระหว่าง textarea กับปุ่ม */
+    width: 100%;
+}
+
+.edit-comment-textarea {
+    margin-bottom: 12px;
+    /* ✅ ช่องว่างเพิ่มเติมเฉพาะ textarea */
+}
+
+
+/* 💾 ปุ่มบันทึก / ยกเลิก */
+.save-edit-btn,
+.cancel-edit-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.save-edit-btn {
+    background-color: #2196f3;
+    color: white;
+}
+
+.save-edit-btn:hover {
+    background-color: #1976d2;
+}
+
+.cancel-edit-btn {
+    background-color: #9e9e9e;
+    color: white;
+}
+
+.cancel-edit-btn:hover {
+    background-color: #757575;
+}
+
+.reply-owner-actions {
+    margin-top: 5px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.reply-owner-actions .edit-btn,
+.reply-owner-actions .delete-btn {
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.reply-owner-actions .edit-btn {
+    background-color: #4caf50;
+}
+
+.reply-owner-actions .edit-btn:hover {
+    background-color: #388e3c;
+}
+
+.reply-owner-actions .delete-btn {
+    background-color: #f44336;
+}
+
+.reply-owner-actions .delete-btn:hover {
+    background-color: #d32f2f;
+}
+
+.edit-reply-section {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.edit-reply-textarea {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    color: #333;
+    min-height: 80px;
+    background-color: #fff;
+}
+
+.save-reply-btn,
+.cancel-reply-btn {
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+.save-reply-btn {
+    background-color: #2196f3;
+}
+
+.save-reply-btn:hover {
+    background-color: #1976d2;
+}
+
+.cancel-reply-btn {
+    background-color: #9e9e9e;
+}
+
+.cancel-reply-btn:hover {
+    background-color: #757575;
+}
+
+.cancel-reply-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    background-color: #9e9e9e;
+    /* เทาอ่อน */
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cancel-reply-button:hover {
+    background-color: #757575;
+    /* เทาเข้มเมื่อ hover */
 }

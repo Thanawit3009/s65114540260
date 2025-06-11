@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.contrib.auth import get_user_model
 from rest_framework.permissions import IsAdminUser
 from mycollections.models import Collection
+from rest_framework.exceptions import PermissionDenied
 import logging
 
 logger = logging.getLogger(__name__)
@@ -232,3 +233,102 @@ class DashboardOverviewView(APIView):
             return Response(data, status=200)
         except Exception as e:
             return Response({"error": f"An error occurred: {str(e)}"}, status=500)
+        
+
+class PostDetailView(APIView):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_object(self, post_id):
+        try:
+            return Post.objects.get(id=post_id)
+        except Post.DoesNotExist:
+            raise Response({"error": "Post not found."}, status=404)
+
+    def get(self, request, post_id):
+        post = self.get_object(post_id)
+        serializer = PostSerializer(post, context={'request': request})
+        return Response(serializer.data)
+
+    def put(self, request, post_id):
+        post = self.get_object(post_id)
+        if post.user != request.user:
+            raise PermissionDenied("คุณไม่สามารถแก้ไขโพสต์ของผู้อื่นได้")
+
+        serializer = PostSerializer(post, data=request.data, partial=True, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
+
+    def delete(self, request, post_id):
+        post = self.get_object(post_id)
+        if post.user != request.user:
+            raise PermissionDenied("คุณไม่สามารถลบโพสต์ของผู้อื่นได้")
+
+        post.delete()
+        return Response({"message": "ลบโพสต์สำเร็จ"}, status=204)
+    
+class CommentDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self, comment_id):
+        try:
+            return Comment.objects.get(id=comment_id)
+        except Comment.DoesNotExist:
+            raise Response({"error": "Comment not found."}, status=status.HTTP_404_NOT_FOUND)
+
+    def put(self, request, comment_id):
+        comment = self.get_object(comment_id)
+
+        if comment.user != request.user:
+            raise PermissionDenied("คุณไม่สามารถแก้ไขคอมเมนต์ของผู้อื่นได้")
+
+        serializer = CommentSerializer(comment, data=request.data, partial=True, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, comment_id):
+        comment = self.get_object(comment_id)
+
+        if comment.user != request.user:
+            raise PermissionDenied("คุณไม่สามารถลบคอมเมนต์ของผู้อื่นได้")
+
+        comment.delete()
+        return Response({"message": "ลบความคิดเห็นสำเร็จ"}, status=status.HTTP_204_NO_CONTENT)
+    
+class CommentReplyDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self, reply_id):
+        try:
+            return CommentReply.objects.get(id=reply_id)
+        except CommentReply.DoesNotExist:
+            return None
+
+    def put(self, request, reply_id):
+        reply = self.get_object(reply_id)
+        if not reply:
+            return Response({"error": "Reply not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        if reply.replied_by_user != request.user:
+            raise PermissionDenied("คุณไม่สามารถแก้ไขคำตอบของผู้อื่นได้")
+
+        serializer = CommentReplySerializer(reply, data=request.data, partial=True, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, reply_id):
+        reply = self.get_object(reply_id)
+        if not reply:
+            return Response({"error": "Reply not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        if reply.replied_by_user != request.user:
+            raise PermissionDenied("คุณไม่สามารถลบคำตอบของผู้อื่นได้")
+
+        reply.delete()
+        return Response({"message": "ลบคำตอบสำเร็จ"}, status=status.HTTP_204_NO_CONTENT)
+

@@ -1,18 +1,16 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { refreshAccessToken, isAdmin } from "../utils/auth";
+import { BrowserQRCodeReader } from "@zxing/browser";
 import "./CollectionsApproval.css";
 
 const CollectionsApproval = () => {
   const [collections, setCollections] = useState([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState({});
 
-  // ใช้ useCallback เพื่อแก้ไขปัญหา dependencies ใน useEffect
   const fetchPendingCollections = useCallback(async () => {
     try {
       const token = localStorage.getItem("token");
-      if (!token) {
-        throw new Error("Token not found. Please log in again.");
-      }
+      if (!token) throw new Error("Token not found. Please log in again.");
 
       const response = await fetch("http://localhost:8000/api/mycollections/admin/collections/", {
         method: "GET",
@@ -24,30 +22,28 @@ const CollectionsApproval = () => {
 
       if (response.status === 401) {
         console.log("Token expired. Refreshing...");
-        await refreshAccessToken(); // Refresh Token
-        return fetchPendingCollections(); // Retry
+        await refreshAccessToken();
+        return fetchPendingCollections();
       }
 
-      if (!response.ok) {
-        throw new Error(`Failed to fetch collections. Status: ${response.status}`);
-      }
+      if (!response.ok) throw new Error(`Failed to fetch collections. Status: ${response.status}`);
 
       const data = await response.json();
       setCollections(data);
     } catch (error) {
       console.error("Error fetching collections:", error);
-      setError("เกิดข้อผิดพลาดในการดึงข้อมูลคอลเล็กชัน");
+      setError({ global: "เกิดข้อผิดพลาดในการดึงข้อมูลคอลเล็กชัน" });
     }
-  }, []); // ไม่ใส่ dependencies ที่เปลี่ยนบ่อย
+  }, []);
 
   useEffect(() => {
     if (!isAdmin()) {
       console.error("Unauthorized: User is not an admin.");
-      setError("คุณไม่ได้รับอนุญาตให้ดูข้อมูลนี้");
+      setError({ global: "คุณไม่ได้รับอนุญาตให้ดูข้อมูลนี้" });
       return;
     }
     fetchPendingCollections();
-  }, [fetchPendingCollections]); // เพิ่ม fetchPendingCollections เป็น dependency
+  }, [fetchPendingCollections]);
 
   const handleApprove = async (id) => {
     try {
@@ -60,15 +56,13 @@ const CollectionsApproval = () => {
         },
       });
 
-      if (!response.ok) {
-        throw new Error(`Failed to approve collection. Status: ${response.status}`);
-      }
+      if (!response.ok) throw new Error(`Failed to approve collection. Status: ${response.status}`);
 
       alert("อนุมัติคอลเล็กชันสำเร็จ");
       fetchPendingCollections();
     } catch (error) {
       console.error("Error approving collection:", error);
-      setError("เกิดข้อผิดพลาดในการอนุมัติคอลเล็กชัน");
+      setError({ global: "เกิดข้อผิดพลาดในการอนุมัติคอลเล็กชัน" });
     }
   };
 
@@ -83,28 +77,26 @@ const CollectionsApproval = () => {
         },
       });
 
-      if (!response.ok) {
-        throw new Error(`Failed to reject collection. Status: ${response.status}`);
-      }
+      if (!response.ok) throw new Error(`Failed to reject collection. Status: ${response.status}`);
 
       alert("ปฏิเสธคอลเล็กชันสำเร็จ");
       fetchPendingCollections();
     } catch (error) {
       console.error("Error rejecting collection:", error);
-      setError("เกิดข้อผิดพลาดในการปฏิเสธคอลเล็กชัน");
+      setError({ global: "เกิดข้อผิดพลาดในการปฏิเสธคอลเล็กชัน" });
     }
   };
 
   return (
     <div className="collections-approval">
       <h1>คอลเล็กชันที่รอการอนุมัติ</h1>
-      {error && <p className="error">{error}</p>}
+      {error.global && <p className="error">{error.global}</p>}
       <table>
         <thead>
           <tr>
             <th>ชื่อคอลเล็กชัน</th>
             <th>รูปคอลเล็กชัน</th>
-            <th>รูป QR Code</th>
+            <th colSpan={2}>QR Code + URL</th>
             <th>ข้อความ ID บรรทัดบน</th>
             <th>ข้อความ ID บรรทัดล่าง</th>
             <th>การจัดการ</th>
@@ -123,13 +115,8 @@ const CollectionsApproval = () => {
                     onError={(e) => (e.target.src = "default-collection.jpg")}
                   />
                 </td>
-                <td>
-                  <img
-                    src={`http://localhost:8000${collection.qr_code}`}
-                    alt="QR Code"
-                    className="qr-code-image"
-                    onError={(e) => (e.target.src = "default-qr-code.jpg")}
-                  />
+                <td colSpan={2}>
+                  <QRDisplayAndScan qrUrl={`http://localhost:8000${collection.qr_code}`} />
                 </td>
                 <td>{collection.topMessage || "ไม่มีข้อความ"}</td>
                 <td>{collection.bottomMessage || "ไม่มีข้อความ"}</td>
@@ -145,7 +132,7 @@ const CollectionsApproval = () => {
             ))
           ) : (
             <tr>
-              <td colSpan="6" style={{ textAlign: "center" }}>
+              <td colSpan="7" style={{ textAlign: "center" }}>
                 ไม่มีคอลเล็กชันที่ต้องตรวจสอบ
               </td>
             </tr>
@@ -154,6 +141,60 @@ const CollectionsApproval = () => {
       </table>
     </div>
   );
+};
+
+const QRDisplayAndScan = ({ qrUrl }) => {
+  const imgRef = useRef(null);
+  const [qrResult, setQrResult] = useState("");
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const codeReader = new BrowserQRCodeReader();
+
+    const scan = async () => {
+      try {
+        const result = await codeReader.decodeFromImageElement(imgRef.current);
+        setQrResult(result.getText());
+        setError("");
+      } catch (err) {
+        console.error("QR scan error:", err.message);
+        setQrResult("");
+        setError("ไม่สามารถอ่าน QR ได้");
+      }
+    };
+
+    if (imgRef.current) {
+      if (imgRef.current.complete) {
+        scan();
+      } else {
+        imgRef.current.onload = scan;
+      }
+    }
+  }, [qrUrl]);
+
+  return (
+    <div style={{ fontSize: "13px", textAlign: "center" }}>
+      <img
+        ref={imgRef}
+        src={qrUrl}
+        crossOrigin="anonymous" // ✅ สำคัญมากสำหรับการสแกนภาพข้าม origin
+        alt="QR Code"
+        style={{ maxWidth: "120px" }}
+        onError={(e) => (e.target.src = "default-qr-code.jpg")}
+      />
+      <div style={{ marginTop: "5px" }}>
+        <strong>QR ลิงก์:</strong>{" "}
+        {qrResult ? (
+          <a href={qrResult} target="_blank" rel="noreferrer">
+            {qrResult}
+          </a>
+        ) : (
+          <span>{error || "กำลังสแกน..."}</span>
+        )}
+      </div>
+    </div>
+  );
+
 };
 
 export default CollectionsApproval;

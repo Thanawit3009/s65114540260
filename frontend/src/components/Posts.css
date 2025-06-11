@@ -161,3 +161,37 @@
 .like-button.liked {
   color: #ff69b4; /* สีชมพูเมื่อถูกกด */
 }
+
+.owner-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.edit-btn {
+  background-color: #4caf50; /* เขียว */
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #388e3c;
+}
+
+.delete-btn {
+  background-color: #f44336; /* แดง */
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
