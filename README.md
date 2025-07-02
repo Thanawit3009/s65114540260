@@ -10,7 +10,7 @@
 
 ต่อมาในส่วน database ใช้ mysql  
 1. mysql --version #คำสั้งตรวจสอบ mysql ว่ามีมั้ย
-2. ถ้าไม่มี ให้ดาวโหลดทีที่  https://dev.mysql.com/downloads/installer
+2. ถ้าไม่มี ให้ดาวโหลดทีที่  https://dev.mysql.com/downloads/installer #https://www.linkedin.com/pulse/how-install-mysql-windows-thescribe-co-lawjc เว็บสอนติดตั้งถ้าทำไม่เป็นก็ทำตามภาพขั้นตอน
 3. ติดตั้ง mysql สร้างรหัสผ่านroot ให้เสร็จ
 4. เมื่อติดตั้งเสร็จลองใช้คำสั่ง mysql --version เพื่่อตรวจสอบว่าติดตั้งสำเร็จหรือไม่
 
