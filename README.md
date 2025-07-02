@@ -33,6 +33,10 @@ cd ไปที่ไฟล์backend
 คำสั่งในการสร้างรหัสแอดมิน cd ไปที่ไฟล์ backend
 1. python manage.py createsuperuser #สร้างอีเมลล์และรหัสแอดมิน
 
+แนะนำ
+ใช้terminal 2ตัว เพื่อให้สับสนน้อย
+ตัวที่1 รันfrontend # cd frontend
+ตัวที่2 รันbackend # cd backend
 
 
 
