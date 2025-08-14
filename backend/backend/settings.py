@@ -94,7 +94,7 @@ DATABASES = {
         'NAME': os.environ.get('DB_NAME', 'toyland_db'),
         'USER': os.environ.get('DB_USER', 'root'),
         'PASSWORD': os.environ.get('DB_PASSWORD', '123456'),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),  # ใน Docker จะเป็น 'db'
+        'HOST': os.environ.get('DB_HOST', 'db'),
         'PORT': os.environ.get('DB_PORT', '3306'),
     }
 }

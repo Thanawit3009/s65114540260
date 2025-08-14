@@ -1,5 +1,3 @@
-
-
 services:
   db:
     image: mysql:8.0
@@ -12,6 +10,12 @@ services:
     volumes:
       - db_data:/var/lib/mysql
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+      start_period: 5s
 
   backend:
     build: ./backend
@@ -29,7 +33,8 @@ services:
       - DB_USER=root
       - DB_PASSWORD=123456
     command: >
-      sh -c "python manage.py migrate &&
+      sh -c "until nc -z db 3306; do echo 'Waiting for MySQL...'; sleep 2; done &&
+             python manage.py migrate &&
              python manage.py runserver 0.0.0.0:8000"
 
   frontend:
