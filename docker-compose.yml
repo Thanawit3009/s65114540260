@@ -25,7 +25,8 @@ services:
     volumes:
       - ./backend:/app
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       - DB_HOST=db
       - DB_PORT=3306
@@ -41,11 +42,13 @@ services:
     build: ./frontend
     container_name: toyland_frontend
     ports:
-      - "3000:3000"
-    volumes:
-      - ./frontend:/app
-    stdin_open: true
-    tty: true
+      - "3000:80"   # map host:container (nginx serve บน 80)
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
 volumes:
   db_data:
