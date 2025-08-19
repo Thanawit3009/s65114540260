@@ -23,9 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-+52rno@o&om^vo^lo6&1^vqw!r@xz3p%bz7wcu(iulbt=t*7nt"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+ALLOWED_HOSTS = ["202.28.49.122", "localhost"]
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+
 
 # Application definition
 
@@ -90,14 +91,17 @@ import os
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME', 'toyland_db'),
-        'USER': os.environ.get('DB_USER', 'root'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', '123456'),
+        'USER': os.environ.get('DB_USER', 'toyuser'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', '1234'),
         'HOST': os.environ.get('DB_HOST', 'db'),
-        'PORT': os.environ.get('DB_PORT', '3306'),
+        'PORT': os.environ.get('DB_PORT', '5432'),
     }
 }
+
+
+
 
 
 
@@ -136,6 +140,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
