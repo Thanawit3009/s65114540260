@@ -1,9 +1,11 @@
+version: "3.9"
+
 services:
   db:
     image: postgres:15
     container_name: toyland_db
     ports:
-      - "5432:5432"
+      - "20260:5432"   # PostgreSQL port ของตัวเอง
     environment:
       POSTGRES_USER: toyuser
       POSTGRES_PASSWORD: 1234
@@ -22,7 +24,7 @@ services:
     build: ./backend
     container_name: toyland_backend
     ports:
-      - "8000:8000"
+      - "30260:8000"   # Django dev server ตัวเอง
     volumes:
       - ./backend:/app
     depends_on:
@@ -43,13 +45,10 @@ services:
     build: ./frontend
     container_name: toyland_frontend
     ports:
-      - "3000:80"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 10s
+      - "10260:10260"   # React dev server main entry
+    stdin_open: true
+    tty: true
+    command: npm start   # รัน react-scripts start
 
 volumes:
   db_data:
