@@ -1,29 +1,51 @@
-# Ignore ไฟล์ฐานข้อมูล MySQL (ถ้ามี)
+# --- OS / IDE ---
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# --- Node / React (CRA) ---
+node_modules/
+npm-debug.log*
+yarn-error.log*
+frontend/build/
+frontend/.eslintcache
+
+# --- Python / Django ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# Django collectstatic & uploads
+backend/staticfiles/
+backend/media/
+
+# Virtual envs
+venv/
+.venv/
+backend/venv/
+backend/.venv/
+
+# --- Secrets / ENV (ตัวอย่างให้ commit เป็น .env.example แทน) ---
+.env
+.env.*
+!.env.example
+
+# --- Logs / misc ---
+*.log
+*.pid
+*.seed
+*.orig
+
+# --- DB dumps (ถ้ามี) ---
 *.sql
 *.sqlite3
 *.db
-
-# Ignore ไฟล์คอนฟิกส่วนตัวที่อาจมีข้อมูลสำคัญ
-.env
-config.json
-settings.py
-
-# Ignore โฟลเดอร์ Virtual Environment (venv)
-venv/
-.env/
-
-# Ignore ไฟล์ที่สร้างขึ้นอัตโนมัติจากระบบปฏิบัติการ
-.DS_Store
-Thumbs.db
-
-# Ignore ไฟล์ที่สร้างจาก Python
-__pycache__/
-*.pyc
-*.pyo
-
-# Ignore ไฟล์ของ Node.js (ถ้ามี frontend ที่ใช้ React/Vue)
-node_modules/
-npm-debug.log
-
-# Ignore ไฟล์ของ VS Code
-.vscode/

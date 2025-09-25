@@ -1,54 +1,101 @@
-version: "3.9"
+# version: "3.9"   # ← ไม่ต้องใส่แล้ว (Compose V2 จะเตือนว่า obsolete)
+
+networks:
+  traefik-public:
+    external: true
+
+volumes:
+  db_data:
 
 services:
   db:
-    image: postgres:15
-    container_name: toyland_db
-    ports:
-      - "20260:5432"   # PostgreSQL port ของตัวเอง
+    image: postgres:16-alpine   # ← ถ้าโวลุ่มเดิมมาจาก v15 ให้เปลี่ยนเป็น 15-alpine
     environment:
       POSTGRES_USER: toyuser
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: toyland_db
     volumes:
       - db_data:/var/lib/postgresql/data
-    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U toyuser"]
       interval: 5s
       timeout: 5s
       retries: 5
       start_period: 5s
+    networks:
+      - traefik-public
+    restart: unless-stopped
 
   backend:
     build: ./backend
-    container_name: toyland_backend
-    ports:
-      - "30260:8000"   # Django dev server ตัวเอง
-    volumes:
-      - ./backend:/app
     depends_on:
       db:
         condition: service_healthy
     environment:
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_NAME=toyland_db
-      - DB_USER=toyuser
-      - DB_PASSWORD=1234
-    command: >
-      sh -c "until nc -z db 5432; do echo 'Waiting for PostgreSQL...'; sleep 2; done &&
-             python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
+      DJANGO_SECRET_KEY: "change-me"
+      DJANGO_DEBUG: "0"
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: toyland_db
+      DB_USER: toyuser
+      DB_PASSWORD: 1234
+    expose:
+      - "8000"
+    networks:
+      - traefik-public
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik-public
+
+      # API: /s65114540260/api/**
+      - traefik.http.routers.s65114540260-api.rule=PathPrefix(`/s65114540260/api`)
+      - traefik.http.routers.s65114540260-api.entrypoints=web
+      - traefik.http.routers.s65114540260-api.middlewares=s65114540260-strip
+      - traefik.http.routers.s65114540260-api.priority=200
+      - traefik.http.services.s65114540260-api.loadbalancer.server.port=8000
+
+      # Static/Media ผ่าน Django: /s65114540260/static | /s65114540260/media
+      - traefik.http.routers.s65114540260-static.rule=PathPrefix(`/s65114540260/static`) || PathPrefix(`/s65114540260/media`)
+      - traefik.http.routers.s65114540260-static.entrypoints=web
+      - traefik.http.routers.s65114540260-static.middlewares=s65114540260-strip
+      - traefik.http.routers.s65114540260-static.priority=200
+      - traefik.http.services.s65114540260-static.loadbalancer.server.port=8000
+
+      # shared middleware: ตัด prefix /s65114540260 ออกก่อนส่งเข้า Django
+      - traefik.http.middlewares.s65114540260-strip.stripprefix.prefixes=/s65114540260
+    restart: unless-stopped
 
   frontend:
     build: ./frontend
-    container_name: toyland_frontend
-    ports:
-      - "10260:10260"   # React dev server main entry
-    stdin_open: true
-    tty: true
-    command: npm start   # รัน react-scripts start
+    expose:
+      - "80"
+    networks:
+      - traefik-public
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik-public
 
-volumes:
-  db_data:
+      # เว็บหลัก: /s65114540260/**
+      - traefik.http.routers.s65114540260-frontend.rule=PathPrefix(`/s65114540260`)
+      - traefik.http.routers.s65114540260-frontend.entrypoints=web
+      - traefik.http.routers.s65114540260-frontend.priority=100
+      - traefik.http.services.s65114540260-frontend.loadbalancer.server.port=80
+    restart: unless-stopped
+
+  # ใช้เฉพาะตอนทดสอบในเครื่อง (อย่ารันบน 10.80.21.9)
+  traefik:
+    image: traefik:v3.0
+    profiles: ["local"]
+    command:
+      - --api.dashboard=true
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+    ports:
+      - "8085:80"     # http://localhost:8085/s65114540260/
+      - "8081:8080"   # http://localhost:8081 (dashboard)
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - traefik-public
+    restart: unless-stopped

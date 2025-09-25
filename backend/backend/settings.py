@@ -11,45 +11,48 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os   # ← เพิ่มบรรทัดนี้
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# ใช้ ENV ในโปรดักชัน ถ้าไม่มีให้ fallback เป็น dev-key
+SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY", "dev-key")
+DEBUG = os.environ.get("DJANGO_DEBUG", "0") == "1"
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
+ALLOWED_HOSTS = ["10.80.21.9", "localhost", "127.0.0.1"]
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-+52rno@o&om^vo^lo6&1^vqw!r@xz3p%bz7wcu(iulbt=t*7nt"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    # Django
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'community',
-    'mycollections',
-    'users',
-    'news',
-    'chat',
-    'corsheaders',
-    'rest_framework',
-    'rest_framework_simplejwt',
+
+    # 3rd party (เพิ่มไว้ตรงนี้)
+    "corsheaders",
+    "rest_framework",
+    "rest_framework_simplejwt",
+
+    # your apps
+    "community",
+    "mycollections",
+    "users",
+    "news",
+    "chat",
 ]
 
+
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',  # ย้ายขึ้นมาเป็นบรรทัดแรก
+    "corsheaders.middleware.CorsMiddleware",           # ← ไว้ต้นสุด
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",      # ← เสิร์ฟ static
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -58,9 +61,15 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 CORS_ALLOW_CREDENTIALS = True
+
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_TRUSTED_ORIGINS = ["http://10.80.21.9", "https://10.80.21.9"]
+
 
 
 ROOT_URLCONF = "backend.urls"
@@ -139,8 +148,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage"
+    }
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -150,11 +165,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # settings.py
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-
-import os
-
-MEDIA_URL = '/media/'  # URL สำหรับไฟล์สื่อ
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 REST_FRAMEWORK = {
@@ -198,4 +208,5 @@ EMAIL_HOST_PASSWORD = "vebi wxhy xxix kfhy"  # ✅ ใช้ App Password ถ้
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # URL ของ Frontend สำหรับลิงก์รีเซ็ตรหัสผ่าน
-FRONTEND_URL = "http://localhost:3000"  # ✅ ถ้า Deploy ต้องใช้ URL จริง เช่น "https://yourdomain.com"
+FRONTEND_URL = "http://10.80.21.9/s65114540260"
+

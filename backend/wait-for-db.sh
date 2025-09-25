@@ -1,13 +1,20 @@
-#!/bin/sh
+#!/usr/bin/env sh
+set -e
 
-echo "⏳ Waiting for MySQL at $DB_HOST:$DB_PORT..."
+# ค่าเริ่มต้น (ตรงกับ docker-compose)
+DB_HOST="${DB_HOST:-db}"
+DB_PORT="${DB_PORT:-5432}"
 
-# loop รอจนกว่าจะเชื่อมต่อ MySQL ได้
+echo "⏳ Waiting for PostgreSQL at ${DB_HOST}:${DB_PORT} ..."
+# รอจนกว่า Postgres จะรับการเชื่อมต่อได้
 while ! nc -z "$DB_HOST" "$DB_PORT"; do
   sleep 1
 done
 
-echo "✅ MySQL is up - running migrations and server..."
+echo "✅ PostgreSQL is up — applying migrations..."
+python manage.py migrate --noinput
 
-python manage.py migrate
-python manage.py runserver 0.0.0.0:8000
+echo "🚀 Starting Gunicorn..."
+exec gunicorn backend.wsgi:application -b 0.0.0.0:8000 \
+  --workers "${GUNICORN_WORKERS:-3}" \
+  --timeout "${GUNICORN_TIMEOUT:-120}"
